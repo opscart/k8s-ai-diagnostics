@@ -1,205 +1,123 @@
 import subprocess
 import datetime
-import json
-
-def run_command(cmd):
-    """Run a shell command and return CompletedProcess object."""
-    return subprocess.run(cmd, capture_output=True, text=True)
-
-def get_current_memory_limit(pod_name, namespace):
-    """
-    Retrieve current memory limit of the first container in the pod.
-    Returns memory string like '200Mi' or None if not found.
-    """
-    cmd = ["kubectl", "get", "pod", pod_name, "-n", namespace, "-o", "json"]
-    result = run_command(cmd)
-    if result.returncode != 0:
-        print(f"Error fetching pod info: {result.stderr.strip()}")
-        return None
-    try:
-        pod_data = json.loads(result.stdout)
-        containers = pod_data["spec"]["containers"]
-        if containers:
-            resources = containers[0].get("resources", {})
-            limits = resources.get("limits", {})
-            mem_limit = limits.get("memory")
-            return mem_limit
-    except (json.JSONDecodeError, KeyError) as e:
-        print(f"Error parsing pod JSON: {e}")
-    return None
-
-def increase_memory(mem_str, factor=1.5):
-    """
-    Increase memory limit by a factor.
-    Supports 'Mi' or 'Gi' suffixes.
-    """
-    if not mem_str:
-        return None
-
-    units = {"Mi": 1, "Gi": 1024}
-    for unit in units:
-        if mem_str.endswith(unit):
-            try:
-                val = float(mem_str[:-len(unit)])
-                new_val = int(val * factor)
-                # Return with same unit
-                return f"{new_val}{unit}"
-            except ValueError:
-                return None
-    # Unknown format, just return None
-    return None
-
-def generate_patch_memory_cmd(pod_name, namespace, new_memory_limit):
-    """
-    Generate kubectl patch command to update memory limit of first container.
-    """
-    patch = {
-        "spec": {
-            "containers": [{
-                "name": pod_name,  # Assumes container name == pod name; adjust if needed
-                "resources": {
-                    "limits": {"memory": new_memory_limit}
-                }
-            }]
-        }
-    }
-    patch_str = json.dumps(patch)
-    cmd = [
-        "kubectl", "patch", "pod", pod_name, "-n", namespace,
-        "--type=merge",
-        f"--patch={patch_str}"
-    ]
-    return cmd
-
-def ask_user_to_confirm(cmd):
-    """
-    Prompt user to confirm remediation action.
-    """
-    print(f"Proposed command:\n{' '.join(cmd)}")
-    resp = input("Apply this remediation? (y/N): ").strip().lower()
-    return resp == 'y'
-
-def apply_patch(cmd):
-    """
-    Apply patch by running the kubectl command.
-    """
-    result = run_command(cmd)
-    if result.returncode == 0:
-        print("Patch applied successfully.")
-    else:
-        print(f"Failed to apply patch: {result.stderr.strip()}")
-    log_remediation_action(" ".join(cmd), result)
-    return result
-
-def restart_pod(pod_name, namespace):
-    """
-    Delete pod to trigger restart.
-    """
-    cmd = ["kubectl", "delete", "pod", pod_name, "-n", namespace]
-    result = run_command(cmd)
-    if result.returncode == 0:
-        print(f"Pod {pod_name} restarted successfully.")
-    else:
-        print(f"Failed to restart pod {pod_name}: {result.stderr.strip()}")
-    log_remediation_action(" ".join(cmd), result)
-    return result
-
-def log_remediation_action(cmd, result):
-    """
-    Log remediation command execution to remediation.log.
-    """
-    with open("remediation.log", "a") as log_file:
-        log_entry = (
-            f"{datetime.datetime.now()} | {cmd} | "
-            f"ReturnCode: {result.returncode} | "
-            f"Output: {result.stdout.strip()} | "
-            f"Error: {result.stderr.strip()}\n"
-        )
-        log_file.write(log_entry)
-
-def parse_remediation_log(log_path="remediation.log"):
-    """
-    Parse remediation.log into list of dict entries.
-    """
-    history = []
-    try:
-        with open(log_path, "r") as f:
-            for line in f:
-                parts = line.strip().split(" | ")
-                if len(parts) >= 4:
-                    try:
-                        entry = {
-                            "timestamp": parts[0],
-                            "command": parts[1],
-                            "returncode": int(parts[2].split(": ")[1]),
-                            "output": parts[3].split(": ", 1)[1] if len(parts[3].split(": ")) > 1 else "",
-                            "error": parts[4].split(": ", 1)[1] if len(parts) > 4 else "",
-                        }
-                        history.append(entry)
-                    except Exception:
-                        continue
-    except FileNotFoundError:
-        pass  # No log yet
-    return history
-
-def was_remediation_successful(command, history):
-    """
-    Check if a remediation command was previously run successfully.
-    """
-    for entry in reversed(history):
-        if entry["command"] == command:
-            return entry["returncode"] == 0
-    return False
+import traceback
 
 def remediate_pod(pod_name, namespace, diagnosis, dry_run=True):
-    """
-    Decide remediation action based on diagnosis and pod info.
-    If dry_run, prepare the action but do not apply.
-    """
-    history = parse_remediation_log()
-    
+    actions = []
+    remediation_type = None
+
+    def infer_deployment_name(pod_name):
+        # Assumes pod name is like: <deployment-name>-<replicaSet-hash>-<random>
+        return "-".join(pod_name.split("-")[:-2])
+    deployment_name = infer_deployment_name(pod_name)
     if "OOMKilled" in diagnosis:
-        current_mem = get_current_memory_limit(pod_name, namespace)
-        if not current_mem:
-            print("Could not retrieve current memory limit. Skipping remediation.")
-            return
-        
-        recommended_mem = increase_memory(current_mem, factor=1.5)
-        if not recommended_mem:
-            print("Could not calculate recommended memory. Skipping remediation.")
-            return
+        remediation_type = "memory_patch"
+        print(f"🔧 Detected OOMKilled. Suggest increasing memory limits.")
 
-        patch_cmd = generate_patch_memory_cmd(pod_name, namespace, recommended_mem)
-        cmd_str = " ".join(patch_cmd)
+        recommended_mem = "400Mi"
+        deployment_name = infer_deployment_name(pod_name)
 
-        if was_remediation_successful(cmd_str, history):
-            print(f"Remediation already applied successfully: {cmd_str}")
-            return
+        patch_cmd = (
+            f"kubectl patch deployment {deployment_name} -n {namespace} --type='json' "
+            f"-p='[{{\"op\": \"replace\", \"path\": \"/spec/template/spec/containers/0/resources/limits/memory\", "
+            f"\"value\": \"{recommended_mem}\"}}]'"
+        )
 
-        if dry_run:
-            print(f"Dry run: Would patch memory limits from {current_mem} to {recommended_mem}")
-            if ask_user_to_confirm(patch_cmd):
-                apply_patch(patch_cmd)
-        else:
-            apply_patch(patch_cmd)
+        print(f"💡 Dry run: Would patch deployment memory limit to {recommended_mem}")
+        print(f"🔍 Patch command: {patch_cmd}")
+        actions.append(patch_cmd)
+        verify_cmd = f"kubectl get deployment {deployment_name} -n {namespace} -o jsonpath='{{.spec.template.spec.containers[0].resources.limits.memory}}'"
+        res = subprocess.run(verify_cmd, shell=True, capture_output=True, text=True)
+        print(f"📦 Verified memory limit: {res.stdout.strip()}")
 
     elif "CrashLoopBackOff" in diagnosis:
-        restart_cmd = f"kubectl delete pod {pod_name} -n {namespace}"
-        if was_remediation_successful(restart_cmd, history):
-            print(f"Restart already performed successfully: {restart_cmd}")
-            return
-        
-        print(f"Dry run: Would restart pod {pod_name}")
-        if not dry_run:
-            restart_pod(pod_name, namespace)
+        print(f"🔧 Detected CrashLoopBackOff. Suggest restarting the pod.")
 
-    elif "Probe failure" in diagnosis or "Unhealthy" in diagnosis:
-        # Placeholder for probe remediation logic
-        print(f"Probe failure detected for pod {pod_name}.")
-        print("Dry run: Would patch probe configuration (not implemented).")
-        # Could implement patching readiness/liveness probes here
-        # Ask user confirmation, generate patch, apply_patch() etc.
+        restart_cmd = f"kubectl delete pod {pod_name} -n {namespace}"
+        remediation_type = "restart_pod"
+        print(f"💡 Dry run: Would restart pod {pod_name}")
+        print(f"🔍 Restart command: {restart_cmd}")
+        actions.append(restart_cmd)
+
+    elif "probe" in diagnosis.lower() or "Liveness probe failed" in diagnosis:
+        print(f"🔧 Detected probe failure. You may need to patch or remove the liveness/readiness probe.")
+        remediation_type = "manual_probe_fix"  # ← Add this line here
+        patch_cmd = f"# You might want to patch the probe config for pod {pod_name}"
+        print(f"💡 Dry run: Probe-related remediation would be required.")
+        print(f"🔍 Suggest editing the deployment manually or update YAML.")
+        actions.append(patch_cmd)
+
+
+    elif "ImagePullBackOff" in diagnosis:
+        print(f"🔧 ImagePullBackOff detected — likely an image issue.")
+        print(f"💡 Please check the image name or pull secrets. No safe automated remediation.")
+        actions.append("# Manual remediation recommended for image issues.")
 
     else:
-        print("No automatic remediation available. Please check manually.")
+        print("⚠️ No automatic remediation available.")
+        return
 
+    # 🔽 This part was missing — it prompts the user and applies remediation
+    if dry_run:
+        confirm = input("🤖 Do you want to apply the above remediation? (yes/no): ").strip().lower()
+        if confirm == "yes":
+            for cmd in actions:
+                if cmd.startswith("#"):
+                    print(f"⚠️ Skipping comment/reminder: {cmd}")
+                    continue
+                run_and_log(cmd)
+
+            # ✅ Only verify deployment health if actual action was taken
+            if remediation_type in ["memory_patch", "restart_pod"]:
+                print("🔍 Verifying deployment health...")
+                wait_cmd = (
+                    f"kubectl wait --for=condition=Available deployment/{deployment_name} "
+                    f"-n {namespace} --timeout=30s"
+                )
+                wait_result = subprocess.run(wait_cmd, shell=True, capture_output=True, text=True)
+
+                verification_msg = (
+                    f"✅ Deployment {deployment_name} is now healthy."
+                    if wait_result.returncode == 0
+                    else f"❌ Deployment {deployment_name} is still not healthy.\n🔴 {wait_result.stderr.strip()}"
+                )
+                print(verification_msg)
+
+        if remediation_type in ["memory_patch", "restart_pod"]:
+            # ✅ Log verification result (Change 3)
+            with open("remediation.log", "a") as log_file:
+                log_file.write(
+                    f"{datetime.datetime.now()} | {wait_cmd} | "
+                    f"ReturnCode: {wait_result.returncode} | "
+                    f"Output: {wait_result.stdout.strip()} | "
+                    f"Error: {wait_result.stderr.strip()}\n"
+                )
+        else:
+            print("🟡 Skipping remediation.")
+    else:
+        for cmd in actions:
+            if not cmd.startswith("#"):
+                run_and_log(cmd)
+
+
+def run_and_log(cmd):
+    try:
+        print(f"🔧 Executing: {cmd}")
+        res = subprocess.run(cmd, shell=True, capture_output=True, text=True)
+
+        with open("remediation.log", "a") as log_file:
+            log_entry = (
+                f"{datetime.datetime.now()} | {cmd} | "
+                f"ReturnCode: {res.returncode} | "
+                f"Output: {res.stdout.strip()} | "
+                f"Error: {res.stderr.strip()}\n"
+            )
+            log_file.write(log_entry)
+
+        if res.returncode != 0:
+            print(f"❌ Command failed with return code {res.returncode}")
+            print(f"🔴 STDERR: {res.stderr.strip()}")
+
+    except Exception:
+        print("🔥 Exception occurred while executing remediation command:")
+        traceback.print_exc()

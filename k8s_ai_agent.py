@@ -150,6 +150,9 @@ def main():
 
         print(f"\n💡 Diagnosis for pod {pod}:\n{result}")
         print("=" * 80)
+        # 🔧 Dry-run remediation
+        from remediation import remediate_pod
+        remediate_pod(pod, namespace, result, dry_run=True)
 
 if __name__ == "__main__":
     main()
