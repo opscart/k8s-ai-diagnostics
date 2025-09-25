@@ -23,6 +23,9 @@ This project is an AI-powered Kubernetes troubleshooting assistant that:
   - Crash loop errors
   - Out-of-memory kills
   - Readiness/liveness probe failures
+✅ Offers a dry-run mode for human approval before remediation  
+✅ Logs all actions with timestamps and command results  
+✅ Uses minimal dependencies (just `kubectl`, OpenAI API, and Python)
 
 ---
 
@@ -43,3 +46,24 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
+$ python3 k8s_ai_agent.py
+Enter the namespace to scan: ai-apps
+🔍 Found 4 unhealthy pod(s): ['broken-nginx', 'oom-test', 'crashy', 'unhealthy-probe']
+
+🤖 Analyzing pod: crashy...
+🔧 Detected CrashLoopBackOff. Suggest restarting the pod.
+🤖 Do you want to apply the above remediation? (yes/no): yes
+✅ Deployment crashy is now healthy.
+
+🤖 Analyzing pod: oom-test...
+🔧 Detected OOMKilled. Suggest increasing memory limits.
+🤖 Do you want to apply the above remediation? (yes/no): yes
+✅ Deployment oom-test is now healthy.
+
+🤖 Analyzing pod: broken-nginx...
+🔧 ImagePullBackOff detected — likely an image issue.
+🟡 Skipping remediation.
+
+🤖 Analyzing pod: unhealthy-probe...
+🔧 Probe failure detected — likely due to missing files.
+🟡 Skipping remediation.
