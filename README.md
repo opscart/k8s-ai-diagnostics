@@ -23,9 +23,9 @@ This project is an AI-powered Kubernetes troubleshooting assistant that:
   - Crash loop errors
   - Out-of-memory kills
   - Readiness/liveness probe failures
-✅ Offers a dry-run mode for human approval before remediation  
-✅ Logs all actions with timestamps and command results  
-✅ Uses minimal dependencies (just `kubectl`, OpenAI API, and Python)
+  - Offers a dry-run mode for human approval before remediation  
+  - Logs all actions with timestamps and command results  
+  - Uses minimal dependencies (just `kubectl`, OpenAI API, and Python)
 
 ---
 
@@ -45,6 +45,8 @@ cd ai-agent-poc
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
+
+### Execution
 
 $ python3 k8s_ai_agent.py
 Enter the namespace to scan: ai-apps
