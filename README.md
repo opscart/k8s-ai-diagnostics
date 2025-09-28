@@ -47,7 +47,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 
 ### Execution
-
+```bash
 $ python3 k8s_ai_agent.py
 Enter the namespace to scan: ai-apps
 🔍 Found 4 unhealthy pod(s): ['broken-nginx', 'oom-test', 'crashy', 'unhealthy-probe']
@@ -69,3 +69,18 @@ Enter the namespace to scan: ai-apps
 🤖 Analyzing pod: unhealthy-probe...
 🔧 Probe failure detected — likely due to missing files.
 🟡 Skipping remediation.
+```
+
+## Remediation Types & Strategies
+**Issue	Diagnosis Type	Action Takßen**
+- ImagePullBackOff	Image issue	Skipped with manual comment/reminder
+- CrashLoopBackOff	Container crash	Pod restarted (via kubectl delete pod)
+- OOMKilled	Memory overuse	Deployment memory limit patched (to 400Mi) [actual mem size shoud taken from usage pattern]
+- Probe failure	Misconfigured probes	Manual remediation suggested (no patch)
+
+## Current Limitations
+
+- No remediation for custom probe logic (manual step recommended)
+- Assumes single-container deployments for memory patching
+- Only the first container in pod is considered for resource checks
+- Currently CLI-interactive (no web UI yet)
