@@ -37,7 +37,7 @@ def get_unhealthy_pods(namespace):
         )
 
         if result.returncode != 0:
-            print(f"❌ Error: Namespace '{namespace}' does not exist or cannot be accessed.")
+            print(f"Error: Namespace '{namespace}' does not exist or cannot be accessed.")
             print(f"🔍 kubectl says: {result.stderr.strip()}")
             return None  # Signal an error
 
@@ -84,7 +84,7 @@ def get_unhealthy_pods(namespace):
         return unhealthy_pods
 
     except Exception as e:
-        print(f"❌ Unexpected error while checking pods: {e}")
+        print(f"Unexpected error while checking pods: {e}")
         return None
 
 def get_pod_info(pod_name, namespace):
@@ -130,7 +130,7 @@ def main():
     namespace = input("Enter the namespace to scan: ").strip()
 
     if not namespace_exists(namespace):
-        print(f"❌ Error: Namespace '{namespace}' does not exist.")
+        print(f"Error: Namespace '{namespace}' does not exist.")
         suggest_namespace(namespace)  # Optional
         return
 
@@ -139,7 +139,7 @@ def main():
         return
 
     if not unhealthy_pods:
-        print("✅ All pods are healthy in this namespace.")
+        print("All pods are healthy in this namespace.")
         return
 
     print(f"🔍 Found {len(unhealthy_pods)} unhealthy pod(s): {unhealthy_pods}")
@@ -148,7 +148,7 @@ def main():
         describe, logs = get_pod_info(pod, namespace)
         result = analyze_with_gpt(pod, namespace, describe, logs)
 
-        print(f"\n💡 Diagnosis for pod {pod}:\n{result}")
+        print(f"\nDiagnosis for pod {pod}:\n{result}")
         print("=" * 80)
         # 🔧 Dry-run remediation
         from remediation import remediate_pod

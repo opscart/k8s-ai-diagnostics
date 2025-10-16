@@ -1,0 +1,3515 @@
+{
+  "attempts": [
+    {
+      "issue": {
+        "pod_name": "alpine-app-77997c4c79-bw7pl",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "ImagePullBackOff",
+        "message": "Back-off pulling image \"apline:3.18\": ErrImagePull: Error response from daemon: pull access denied for apline, repository does not exist or may require 'docker login': denied: requested access to the resource is denied",
+        "timestamp": "2025-10-16T10:30:38.011248",
+        "container_name": "alpine"
+      },
+      "action": "fix_image_name",
+      "action_details": {
+        "deployment_name": "alpine-app",
+        "new_image": "alpine:3.18"
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:30:43.200987",
+      "reasoning": "Detected typo in image name: 'apline:3.18' should be 'alpine:3.18'"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-vx496",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-vx496_agentic-demo(e5599706-f681-4df3-9e05-9d3a1aa0cb4b)",
+        "timestamp": "2025-10-16T10:30:38.011275",
+        "container_name": "data-processor"
+      },
+      "action": "restart_pod",
+      "action_details": {
+        "pod_name": "memory-hungry-649cddc7bc-vx496",
+        "namespace": "agentic-demo"
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:31:03.972573",
+      "reasoning": "The pod is in a CrashLoopBackOff state, which might be due to a temporary issue. Restarting the pod could resolve this issue if it's temporary."
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-vx496",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-vx496_agentic-demo(e5599706-f681-4df3-9e05-9d3a1aa0cb4b)",
+        "timestamp": "2025-10-16T10:30:38.011275",
+        "container_name": "data-processor"
+      },
+      "action": "increase_memory",
+      "action_details": {
+        "pod_name": "memory-hungry-649cddc7bc-vx496",
+        "namespace": "agentic-demo",
+        "new_limit": "2Gi"
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:31:03.973264",
+      "reasoning": "The pod's name suggests that it might be memory-intensive. Increasing the memory limit could prevent the pod from crashing due to insufficient memory."
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-vx496",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-vx496_agentic-demo(e5599706-f681-4df3-9e05-9d3a1aa0cb4b)",
+        "timestamp": "2025-10-16T10:30:38.011275",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "pod_name": "memory-hungry-649cddc7bc-vx496",
+        "namespace": "agentic-demo",
+        "env_vars": {
+          "JAVA_OPTS": "-Xmx1g"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:31:03.973546",
+      "reasoning": "If the application running inside the pod is Java-based, setting the JAVA_OPTS environment variable to limit the Java heap size could prevent the pod from using too much memory and crashing."
+    },
+    {
+      "issue": {
+        "pod_name": "mysql-client-759c547784-rqlrt",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=mysql-client pod=mysql-client-759c547784-rqlrt_agentic-demo(366ed754-39c6-4c0a-934c-b0a8659ca4ba)",
+        "timestamp": "2025-10-16T10:30:38.011278",
+        "container_name": "mysql-client"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:31:09.232907",
+      "reasoning": "Pod logs indicate missing environment variables: MYSQL_HOST, MYSQL_ROOT_PASSWORD"
+    },
+    {
+      "issue": {
+        "pod_name": "web-server-df885bd9d-g7bmf",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "ImagePullBackOff",
+        "message": "Back-off pulling image \"nginx:latst\": ErrImagePull: Error response from daemon: manifest for nginx:latst not found: manifest unknown: manifest unknown",
+        "timestamp": "2025-10-16T10:30:38.011280",
+        "container_name": "nginx"
+      },
+      "action": "fix_image_name",
+      "action_details": {
+        "deployment_name": "web-server",
+        "new_image": "nginx:latest"
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:31:14.444903",
+      "reasoning": "Detected typo in image name: 'nginx:latst' should be 'nginx:latest'"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 20s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:32:14.584605",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:32:19.837021",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 40s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:32:50.014678",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:32:55.295447",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 1m20s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:33:55.613525",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:34:00.878620",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 1m20s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:34:30.976468",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:34:36.225617",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 2m40s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:35:36.388435",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:35:41.632731",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 2m40s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:36:11.802572",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:36:17.061011",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 2m40s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:36:47.164886",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:36:52.449024",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 2m40s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:37:22.592784",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:37:27.837378",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 2m40s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:37:58.055598",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:38:03.324353",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:38:33.406772",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:38:38.681611",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:39:08.835499",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:39:14.110430",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:39:44.215077",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:39:49.471737",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:40:19.623153",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:40:24.888202",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:40:54.985870",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:41:00.237664",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:41:30.390159",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:41:35.689390",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:42:05.828253",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:42:11.102988",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:42:41.290735",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:42:46.573409",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:43:16.721234",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:43:21.999459",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:43:52.088667",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:43:57.338776",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:44:27.414327",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:44:32.676929",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:45:02.781772",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:45:08.034737",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:45:38.108127",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:45:43.359190",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:46:13.446391",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:46:18.699616",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:46:48.775611",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:46:54.027956",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:47:24.098901",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:47:29.370626",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:47:59.432691",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:48:04.697599",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:48:34.838369",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:48:40.109043",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:49:10.170027",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:49:15.430580",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:49:45.519217",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:49:50.780451",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:50:20.888441",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:50:26.147702",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:50:56.245080",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:51:01.499654",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:51:31.575763",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:51:36.833534",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:52:06.937612",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:52:12.201530",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:52:42.293613",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:52:47.554977",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:53:17.634164",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:53:22.886791",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:53:52.966098",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:53:58.217594",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:54:28.302328",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:54:33.543175",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:55:03.639606",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:55:08.892714",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:55:38.995398",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:55:44.271535",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:56:14.344604",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:56:19.581246",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:56:49.737598",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:56:54.996151",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:57:25.063386",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:57:30.312205",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:58:00.382454",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:58:05.637414",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:58:35.727230",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:58:40.983551",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:59:11.097018",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:59:16.351041",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T10:59:46.449654",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T10:59:51.703696",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:00:21.807877",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:00:27.064720",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:00:57.144455",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:01:02.400828",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:01:32.514089",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:01:37.772743",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:02:07.944804",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:02:13.210691",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:02:43.288853",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:02:48.539115",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:03:18.629767",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:03:23.878544",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:03:53.971981",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:03:59.225473",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:04:29.335767",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:04:34.597204",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:05:04.688871",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:05:09.940645",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:05:40.042335",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:05:45.300162",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:06:15.370381",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:06:20.620397",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:06:50.701540",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:06:55.952908",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:07:26.114782",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:07:31.375454",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:08:01.557181",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:08:06.820784",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:08:36.908704",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:08:42.177314",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:09:12.241899",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:09:17.494901",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:10:17.641837",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:10:22.906196",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:10:52.992743",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:10:58.270809",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:11:28.337463",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:11:33.597055",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:12:03.660474",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:12:08.922221",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:12:39.007525",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:12:44.272205",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:13:14.342783",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:13:19.598415",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:13:49.686053",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:13:54.964161",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:14:25.047924",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:14:30.318469",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:15:00.400812",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:15:05.663076",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:15:35.745474",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:15:41.028491",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:16:11.123303",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:16:16.381767",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:16:46.477263",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:16:51.738658",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:17:21.852154",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:17:27.105274",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:17:57.192889",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:18:02.511013",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:18:32.601020",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:18:37.891576",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:19:07.986382",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:19:13.271880",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:19:43.348253",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:19:48.622958",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:20:18.801942",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:20:24.112031",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:20:54.196133",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:20:59.442882",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:21:29.526737",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:21:34.774783",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:22:04.870417",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:22:10.139897",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:22:40.216892",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:22:45.483865",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:23:15.555375",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:23:20.793501",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:23:50.891886",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:23:56.146972",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:24:26.244297",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:24:31.492355",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:25:01.636810",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:25:06.890817",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:25:36.994315",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:25:42.272722",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:26:12.366205",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:26:17.617426",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:26:47.698763",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:26:52.949503",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:27:23.057876",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:27:28.310596",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:27:58.414838",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:28:03.671808",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:28:33.834217",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:28:39.096402",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:29:09.194129",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:29:14.472180",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:29:44.560508",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:29:49.841292",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:30:19.928874",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:30:25.184787",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Waiting",
+        "reason": "CrashLoopBackOff",
+        "message": "back-off 5m0s restarting failed container=data-processor pod=memory-hungry-649cddc7bc-p25km_agentic-demo(3e3018d6-91a4-4368-8e64-ceeb3fd0133b)",
+        "timestamp": "2025-10-16T11:30:55.367999",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "deployment_name": "mysql-client",
+        "env_vars": {
+          "MYSQL_HOST": "localhost",
+          "MYSQL_ROOT_PASSWORD": "password123"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:31:00.627449",
+      "reasoning": "Using learned solution: update_env"
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Terminated",
+        "reason": "OOMKilled",
+        "message": "Exit code: 137. ",
+        "timestamp": "2025-10-16T11:31:30.734329",
+        "container_name": "data-processor"
+      },
+      "action": "increase_memory",
+      "action_details": {
+        "new_limit": "2Gi"
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:31:48.565914",
+      "reasoning": "The pod was terminated due to OutOfMemory (OOM) error. Increasing the memory limit will provide the pod with more resources to handle its tasks."
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Terminated",
+        "reason": "OOMKilled",
+        "message": "Exit code: 137. ",
+        "timestamp": "2025-10-16T11:31:30.734329",
+        "container_name": "data-processor"
+      },
+      "action": "restart_pod",
+      "action_details": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo"
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:31:48.570481",
+      "reasoning": "If increasing the memory limit does not resolve the issue, restarting the pod might help as it clears the current state of the pod and starts it fresh."
+    },
+    {
+      "issue": {
+        "pod_name": "memory-hungry-649cddc7bc-p25km",
+        "namespace": "agentic-demo",
+        "status": "Terminated",
+        "reason": "OOMKilled",
+        "message": "Exit code: 137. ",
+        "timestamp": "2025-10-16T11:31:30.734329",
+        "container_name": "data-processor"
+      },
+      "action": "update_env",
+      "action_details": {
+        "env_vars": {
+          "JAVA_OPTS": "-Xmx1g"
+        }
+      },
+      "success": true,
+      "timestamp": "2025-10-16T11:31:48.573927",
+      "reasoning": "If the pod continues to face memory issues, adjusting environment variables such as JAVA_OPTS can help manage the memory usage of the JVM inside the pod."
+    }
+  ],
+  "patterns": {
+    "Waiting_ImagePullBackOff": {
+      "successful_actions": [
+        {
+          "action": "fix_image_name",
+          "details": {
+            "deployment_name": "alpine-app",
+            "new_image": "alpine:3.18"
+          },
+          "reasoning": "Detected typo in image name: 'apline:3.18' should be 'alpine:3.18'"
+        },
+        {
+          "action": "fix_image_name",
+          "details": {
+            "deployment_name": "web-server",
+            "new_image": "nginx:latest"
+          },
+          "reasoning": "Detected typo in image name: 'nginx:latst' should be 'nginx:latest'"
+        }
+      ],
+      "success_count": 2,
+      "total_count": 2
+    },
+    "Waiting_CrashLoopBackOff": {
+      "successful_actions": [
+        {
+          "action": "restart_pod",
+          "details": {
+            "pod_name": "memory-hungry-649cddc7bc-vx496",
+            "namespace": "agentic-demo"
+          },
+          "reasoning": "The pod is in a CrashLoopBackOff state, which might be due to a temporary issue. Restarting the pod could resolve this issue if it's temporary."
+        },
+        {
+          "action": "increase_memory",
+          "details": {
+            "pod_name": "memory-hungry-649cddc7bc-vx496",
+            "namespace": "agentic-demo",
+            "new_limit": "2Gi"
+          },
+          "reasoning": "The pod's name suggests that it might be memory-intensive. Increasing the memory limit could prevent the pod from crashing due to insufficient memory."
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "pod_name": "memory-hungry-649cddc7bc-vx496",
+            "namespace": "agentic-demo",
+            "env_vars": {
+              "JAVA_OPTS": "-Xmx1g"
+            }
+          },
+          "reasoning": "If the application running inside the pod is Java-based, setting the JAVA_OPTS environment variable to limit the Java heap size could prevent the pod from using too much memory and crashing."
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Pod logs indicate missing environment variables: MYSQL_HOST, MYSQL_ROOT_PASSWORD"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "deployment_name": "mysql-client",
+            "env_vars": {
+              "MYSQL_HOST": "localhost",
+              "MYSQL_ROOT_PASSWORD": "password123"
+            }
+          },
+          "reasoning": "Using learned solution: update_env"
+        }
+      ],
+      "success_count": 102,
+      "total_count": 102
+    },
+    "Terminated_OOMKilled": {
+      "successful_actions": [
+        {
+          "action": "increase_memory",
+          "details": {
+            "new_limit": "2Gi"
+          },
+          "reasoning": "The pod was terminated due to OutOfMemory (OOM) error. Increasing the memory limit will provide the pod with more resources to handle its tasks."
+        },
+        {
+          "action": "restart_pod",
+          "details": {
+            "pod_name": "memory-hungry-649cddc7bc-p25km",
+            "namespace": "agentic-demo"
+          },
+          "reasoning": "If increasing the memory limit does not resolve the issue, restarting the pod might help as it clears the current state of the pod and starts it fresh."
+        },
+        {
+          "action": "update_env",
+          "details": {
+            "env_vars": {
+              "JAVA_OPTS": "-Xmx1g"
+            }
+          },
+          "reasoning": "If the pod continues to face memory issues, adjusting environment variables such as JAVA_OPTS can help manage the memory usage of the JVM inside the pod."
+        }
+      ],
+      "success_count": 3,
+      "total_count": 3
+    }
+  }
+}

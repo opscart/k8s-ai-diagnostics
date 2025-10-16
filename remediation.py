@@ -23,20 +23,20 @@ def remediate_pod(pod_name, namespace, diagnosis, dry_run=True):
             f"\"value\": \"{recommended_mem}\"}}]'"
         )
 
-        print(f"💡 Dry run: Would patch deployment memory limit to {recommended_mem}")
-        print(f"🔍 Patch command: {patch_cmd}")
+        print(f"Dry run: Would patch deployment memory limit to {recommended_mem}")
+        print(f"Patch command: {patch_cmd}")
         actions.append(patch_cmd)
         verify_cmd = f"kubectl get deployment {deployment_name} -n {namespace} -o jsonpath='{{.spec.template.spec.containers[0].resources.limits.memory}}'"
         res = subprocess.run(verify_cmd, shell=True, capture_output=True, text=True)
-        print(f"📦 Verified memory limit: {res.stdout.strip()}")
+        print(f"Verified memory limit: {res.stdout.strip()}")
 
     elif "CrashLoopBackOff" in diagnosis:
         print(f"🔧 Detected CrashLoopBackOff. Suggest restarting the pod.")
 
         restart_cmd = f"kubectl delete pod {pod_name} -n {namespace}"
         remediation_type = "restart_pod"
-        print(f"💡 Dry run: Would restart pod {pod_name}")
-        print(f"🔍 Restart command: {restart_cmd}")
+        print(f"Dry run: Would restart pod {pod_name}")
+        print(f"Restart command: {restart_cmd}")
         actions.append(restart_cmd)
 
     elif "probe" in diagnosis.lower() or "Liveness probe failed" in diagnosis:
@@ -49,25 +49,25 @@ def remediate_pod(pod_name, namespace, diagnosis, dry_run=True):
 
 
     elif "ImagePullBackOff" in diagnosis:
-        print(f"🔧 ImagePullBackOff detected — likely an image issue.")
-        print(f"💡 Please check the image name or pull secrets. No safe automated remediation.")
+        print(f"ImagePullBackOff detected — likely an image issue.")
+        print(f"Please check the image name or pull secrets. No safe automated remediation.")
         actions.append("# Manual remediation recommended for image issues.")
 
     else:
-        print("⚠️ No automatic remediation available.")
+        print("No automatic remediation available.")
         return
 
-    # 🔽 This part was missing — it prompts the user and applies remediation
+    # This part was missing — it prompts the user and applies remediation
     if dry_run:
-        confirm = input("🤖 Do you want to apply the above remediation? (yes/no): ").strip().lower()
+        confirm = input("Do you want to apply the above remediation? (yes/no): ").strip().lower()
         if confirm == "yes":
             for cmd in actions:
                 if cmd.startswith("#"):
-                    print(f"⚠️ Skipping comment/reminder: {cmd}")
+                    print(f"Skipping comment/reminder: {cmd}")
                     continue
                 run_and_log(cmd)
 
-            # ✅ Only verify deployment health if actual action was taken
+            # Only verify deployment health if actual action was taken
             if remediation_type in ["memory_patch", "restart_pod"]:
                 print("🔍 Verifying deployment health...")
                 wait_cmd = (
@@ -77,14 +77,14 @@ def remediate_pod(pod_name, namespace, diagnosis, dry_run=True):
                 wait_result = subprocess.run(wait_cmd, shell=True, capture_output=True, text=True)
 
                 verification_msg = (
-                    f"✅ Deployment {deployment_name} is now healthy."
+                    f"Deployment {deployment_name} is now healthy."
                     if wait_result.returncode == 0
-                    else f"❌ Deployment {deployment_name} is still not healthy.\n🔴 {wait_result.stderr.strip()}"
+                    else f"Deployment {deployment_name} is still not healthy.\n {wait_result.stderr.strip()}"
                 )
                 print(verification_msg)
 
         if remediation_type in ["memory_patch", "restart_pod"]:
-            # ✅ Log verification result (Change 3)
+            # Log verification result (Change 3)
             with open("remediation.log", "a") as log_file:
                 log_file.write(
                     f"{datetime.datetime.now()} | {wait_cmd} | "
@@ -93,7 +93,7 @@ def remediate_pod(pod_name, namespace, diagnosis, dry_run=True):
                     f"Error: {wait_result.stderr.strip()}\n"
                 )
         else:
-            print("🟡 Skipping remediation.")
+            print("Skipping remediation.")
     else:
         for cmd in actions:
             if not cmd.startswith("#"):
@@ -115,9 +115,9 @@ def run_and_log(cmd):
             log_file.write(log_entry)
 
         if res.returncode != 0:
-            print(f"❌ Command failed with return code {res.returncode}")
-            print(f"🔴 STDERR: {res.stderr.strip()}")
+            print(f"Command failed with return code {res.returncode}")
+            print(f"STDERR: {res.stderr.strip()}")
 
     except Exception:
-        print("🔥 Exception occurred while executing remediation command:")
+        print("Exception occurred while executing remediation command:")
         traceback.print_exc()
