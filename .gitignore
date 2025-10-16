@@ -2,3 +2,9 @@
 
 __pycache__/
 *.log
+venv/
+agentic-ai/venv/
+*.pyc
+__pycache__/
+agentic_memory.json
+.env
